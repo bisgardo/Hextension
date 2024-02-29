@@ -22,15 +22,13 @@ extension Data {
         self.init(capacity: length / 2)
 
         var prev: Character?
-        var idx = -1
         for cur in hex {
             if let p = prev {
-                idx += 2
                 guard let high = p.hexDigitValue else {
-                    throw DataHexError.invalidCharacter(p, index: idx-1)
+                    throw DataHexError.invalidCharacter(p, index: 2*count)
                 }
                 guard let low = cur.hexDigitValue else {
-                    throw DataHexError.invalidCharacter(cur, index: idx)
+                    throw DataHexError.invalidCharacter(cur, index: 2*count + 1)
                 }
                 append(UInt8(16*high + low))
                 prev = nil
