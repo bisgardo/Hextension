@@ -8,7 +8,7 @@ public enum DataHexError: Error, Equatable {
 let characters: [Character] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
 
 extension Data {
-    /// Initialize a `Data` from a hexadecimal/base-16 encoded String.
+    /// Initialize a `Data` from a hex encoded String.
     ///
     /// Supports both upper- and lower-case letters.
     ///
@@ -41,7 +41,18 @@ extension Data {
         assert(prev == nil)
     }
 
-    /// The data contents as a hexadecimal/base-16 encoded string.
+    /// Initialize a `Data` from a Base-16 encoded String.
+    ///
+    /// This initializer is included for consistency with the one for Base-64.
+    /// It simply delegates to `Data(hex:)`.
+    /// Unlike that initializer, this one returns `nil` instead of throwing an error
+    /// when the input is not recognized as valid Base-16.
+    /// - Parameter base16String: The string to parse.
+    public init?(base16Encoded base16String: String) {
+        try? self.init(hex: base16String)
+    }
+
+    /// The data contents as a hexadecimal encoded string.
     public var hex: String {
         let length = 2 * count
         var res = String()
@@ -53,5 +64,13 @@ extension Data {
             res.append(characters[low])
         }
         return res
+    }
+
+    /// Returns the data contents as a Base-16/hex encoded string.
+    ///
+    /// This function is included for consistency with the Base-64 method and simply delegates to the `hex` property.
+    /// - Returns: The data in Base-16 encoding.
+    public func base16EncodedString() -> String {
+        hex
     }
 }

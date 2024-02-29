@@ -10,8 +10,16 @@ All platforms are supported with no version restriction.
 
 ## Methods
 
-- `Data(hex:)`: Parse `Data` from hex string
-- `Data.hex`: Encode `Data` object into hex string
+- `Data(hex:)` initializer: Parse `Data` from hex string (or throw error).
+- `hex` property of `Data`: Encode `Data` object into hex string.
+
+*Aliases:*
+
+The following methods are included for consistency with the corresponding ones for Base64 in the standard library.
+
+- `Data(base16Encoded:)` initializer: Same as `Data(hex:)` except that it will return `nil` on invalid input
+  instead of throwing an error.
+- `base16EncodedString` property of `Data`: Same as the `hex` property of `Data`.
 
 ## Usage
 
