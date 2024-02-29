@@ -52,3 +52,9 @@ The extension is now enabled by importing the package
 ```swift
 import Hextension
 ```
+
+Note that it's sufficient to import the package in just a single source file of the project.
+Then `Data` will have the extensions in all source files where `Foundation` is imported.
+
+For this reason, it might make sense to add a special file like `Hextension.swift` or `Extensions/Data+Hex.swift`
+that contains only this import.
